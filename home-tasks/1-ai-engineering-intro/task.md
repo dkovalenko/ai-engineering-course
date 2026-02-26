@@ -1,5 +1,7 @@
 **1. Foundational Models**
 
+https://artificialanalysis.ai/
+
 Створити таблицю з принаймні 10 foundational models (proprietary та open-weights) як ти хочеш спробувати у своїй роботі. Коротко зазнач чому саме ця модель.
 
 Для кожної моделі зібрати ключові інженерні параметри:
