@@ -22,6 +22,7 @@ Run:
 """
 
 import os
+from pathlib import Path
 
 import litellm
 from litellm import completion
@@ -46,19 +47,31 @@ MODELS = [
 ]
 
 TEMPERATURES = [0.7]
+SEED = 42
 
 
-def ask(model: str, prompt: str, temperature: float = 0.7) -> str:
+def ask(model: str, prompt: str, temperature: float = 0.7, seed: int | None = SEED) -> str:
     resp = completion(
         model=model,
         messages=[{"role": "user", "content": prompt}],
         temperature=temperature,
+        seed=seed,
         max_tokens=1024,
     )
     return resp.choices[0].message.content
 
 
+def save_response(out_dir: Path, short_name: str, temp: float, text: str):
+    slug = short_name.replace("/", "_").replace(" ", "_")
+    path = out_dir / f"{slug}_t{temp}.txt"
+    path.write_text(text + "\n")
+    print(f"  → saved {path}")
+
+
 def main():
+    out_dir = Path(__file__).parent / "responses"
+    out_dir.mkdir(exist_ok=True)
+
     print("=" * 70)
     print(f"Prompt: {PROMPT}")
     print("=" * 70)
@@ -72,6 +85,7 @@ def main():
             try:
                 result = ask(model, PROMPT, temp)
                 print(result)
+                save_response(out_dir, short_name, temp, result)
             except Exception as e:
                 print(f"ERROR: {e}")
 
