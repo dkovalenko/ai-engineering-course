@@ -55,7 +55,7 @@ def ask(model: str, prompt: str, temperature: float = 0.7, seed: int | None = SE
         model=model,
         messages=[{"role": "user", "content": prompt}],
         temperature=temperature,
-        seed=seed,
+        #seed=seed,
         max_tokens=1024,
     )
     return resp.choices[0].message.content
