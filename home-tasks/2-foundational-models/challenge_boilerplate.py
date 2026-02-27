@@ -46,7 +46,7 @@ MODELS = [
     # "ollama/llama3.2",
 ]
 
-TEMPERATURES = [0.7]
+TEMPERATURES = [0.1, 0.7, 1.2]
 SEED = 42
 
 
